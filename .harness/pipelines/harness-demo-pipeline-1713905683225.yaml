@@ -33,3 +33,31 @@ pipeline:
             spec: {}
             type: Cloud
         type: CI
+    - stage:
+        name: Scan-Code
+        identifier: ScanCode
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Owasp
+                  name: Owasp_1
+                  identifier: Owasp_1
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
