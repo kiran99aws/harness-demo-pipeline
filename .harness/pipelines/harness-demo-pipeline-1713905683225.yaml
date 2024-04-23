@@ -61,3 +61,4 @@ pipeline:
                     advanced:
                       log:
                         level: info
+                      fail_on_severity: critical
