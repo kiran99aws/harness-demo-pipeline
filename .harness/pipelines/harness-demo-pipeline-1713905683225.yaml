@@ -41,11 +41,11 @@ pipeline:
         spec:
           cloneCodebase: false
           platform:
-            os: Linux
             arch: Amd64
+            os: Linux
           runtime:
-            type: Docker
             spec: {}
+            type: Cloud
           execution:
             steps:
               - step:
