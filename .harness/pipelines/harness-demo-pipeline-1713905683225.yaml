@@ -26,28 +26,6 @@ pipeline:
                     command: echo hello world
                   timeout: ""
                   type: Run
-          platform:
-            arch: Amd64
-            os: Linux
-          runtime:
-            spec: {}
-            type: Cloud
-        type: CI
-    - stage:
-        name: Scan-Code
-        identifier: ScanCode
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: false
-          platform:
-            arch: Amd64
-            os: Linux
-          runtime:
-            spec: {}
-            type: Cloud
-          execution:
-            steps:
               - step:
                   type: Owasp
                   name: Owasp_1
@@ -62,3 +40,10 @@ pipeline:
                       log:
                         level: info
                       fail_on_severity: critical
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+        type: CI
