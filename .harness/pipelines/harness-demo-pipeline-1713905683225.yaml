@@ -11,30 +11,56 @@ pipeline:
         repoName: kiran99aws/harness-demo-pipeline
   stages:
     - stage:
-        identifier: build
-        name: build
+        name: Clone Codebase
+        identifier: Clone_Codebase
+        description: ""
+        type: CI
         spec:
-          caching:
-            enabled: true
           cloneCodebase: true
-          execution:
-            steps:
-              - step:
-                  identifier: gitpush
-                  name: git-push
-                  description: This step copies code to target repository
-                  type: Run
-                  spec:
-                    image: appleboy/drone-git-push
-                    settings:
-                      branch: master
-                      repoName: kiran99aws/harness-demo-pipeline
-                      force: false
-                      commit: true
           platform:
             os: Linux
             arch: Amd64
           runtime:
-            type: Cloud
+            type: Docker
             spec: {}
-        type: CI
+          execution:
+            steps:
+              - parallel:
+                  - step:
+                      type: GitClone
+                      name: GitClone_1
+                      identifier: GitClone_1
+                      spec:
+                        connectorRef: account.Github
+                        repoName: harness-template-repo
+                        cloneDirectory: /harness/harness-template-repo
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+                  - step:
+                      type: GitClone
+                      name: GitClone_2
+                      identifier: GitClone_2
+                      spec:
+                        connectorRef: account.Github
+                        repoName: harness-template-repo
+                        cloneDirectory: /harness/harness-template-repo
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: |-
+                      cd /harness/harness-target-repo 
+                      cp -prf /harness/harness-template-repo
+                      git status
+                      git add .
+                      git commit -m "Copying Code from Template Repo"
+                      git push
+                      echo "All Complete"
