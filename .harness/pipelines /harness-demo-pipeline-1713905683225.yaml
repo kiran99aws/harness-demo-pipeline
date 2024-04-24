@@ -65,10 +65,8 @@ pipeline:
                         EOF
 
                         cd /harness/harness-target-repo && git pull
-                        mv .git .git_orig
-                        cp -prf /harness/harness-template-repo/* .
-                        rm -rf .git
-                        mv .git_orig .git
+                        rm -rf /harness/harness-template-repo/.git
+                        cp -rf /harness/harness-template-repo/* .
                         git add -A
                         git status
                         git commit -m "Adding Template files"
