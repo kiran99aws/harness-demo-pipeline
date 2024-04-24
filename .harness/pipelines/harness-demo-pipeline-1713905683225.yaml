@@ -71,7 +71,7 @@ pipeline:
                       cp -prf /harness/harness-template-repo/* .
                       rm -rf .git && mv .git_orig .git
                       git status
-                      git add .
+                      git add -a
                       git commit -m "Copying Code from Template Repo"
                       git push
                       echo "All Complete"
