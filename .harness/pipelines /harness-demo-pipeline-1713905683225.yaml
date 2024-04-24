@@ -56,8 +56,10 @@ pipeline:
                   name: Run_1
                   identifier: Run_1
                   spec:
-                    shell: Sh
-                    command: |2-
+                    shell: Bash
+                    type: Inline
+                    spec:
+                      script: |-
                         cat <<EOF > ${HOME}/.netrc
                         machine ${DRONE_NETRC_MACHINE}
                         login ${DRONE_NETRC_USERNAME}
