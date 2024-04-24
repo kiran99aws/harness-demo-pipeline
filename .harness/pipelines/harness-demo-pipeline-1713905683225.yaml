@@ -35,7 +35,7 @@ pipeline:
                     image: appleboy/drone-git-push
                     settings:
                       branch: master
-                      remote: git@github.com:kiran99aws/harness-demo-pipeline.git
+                      remote: kiran99aws/harness-demo-pipeline.git
                       force: false
                       commit: true
           platform:
