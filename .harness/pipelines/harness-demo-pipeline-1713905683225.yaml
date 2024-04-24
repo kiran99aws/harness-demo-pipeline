@@ -8,7 +8,7 @@ pipeline:
       codebase:
         build: <+input>
         connectorRef: account.Github
-        repoName: kiran99aws/harness-demo-pipeline
+        repoName: kiran99aws/harness-template-repo
   stages:
     - stage:
         identifier: build
@@ -35,7 +35,7 @@ pipeline:
                     image: appleboy/drone-git-push
                     settings:
                       branch: master
-                      remote: https://github.com/kiran99aws/harness-demo-pipeline.git
+                      repoName: kiran99aws/harness-demo-pipeline
                       force: false
                       commit: true
           platform:
