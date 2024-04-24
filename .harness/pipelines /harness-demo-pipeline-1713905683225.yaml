@@ -65,8 +65,8 @@ pipeline:
                       password ${DRONE_NETRC_PASSWORD}
                       EOF
 
-                      echo ${DRONE_NETRC_PASSWORD}
-                      echo HOSTNAME=`hostname` && echo $HOSTNAME
+                      echo ${DRONE_NETRC_MACHINE}
+                      # echo HOSTNAME=`hostname` && echo $HOSTNAME
                       git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
                       rm -rf /harness/harness-template-repo/.git*
                       echo "These are the contents of template repo" \n && ls -la /harness/harness-template-repo
