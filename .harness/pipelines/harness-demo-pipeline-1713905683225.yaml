@@ -27,19 +27,17 @@ pipeline:
                   timeout: ""
                   type: Run
               - step:
-                  type: Owasp
-                  name: Owasp_1
-                  identifier: Owasp_1
+                  identifier: gitpush
+                  name: git-push
+                  description: This step copies code to target repository
+                  image: appleboy/drone-git-push
+                  type: Run
                   spec:
-                    mode: orchestration
-                    config: default
-                    target:
-                      type: repository
-                      detection: auto
-                    advanced:
-                      log:
-                        level: info
-                      fail_on_severity: critical
+                    settings:
+                      branch: master
+                      remote: git@github.com:kiran99aws/harness-demo-pipeline.git
+                      force: false
+                      commit: true
           platform:
             os: Linux
             arch: Amd64
