@@ -58,22 +58,9 @@ pipeline:
                   spec:
                     shell: Bash
                     type: Inline
+                    onDelegate: true
                     spec:
-                      script: |-
-                        cat <<EOF > ${HOME}/.netrc
-                        machine ${DRONE_NETRC_MACHINE}
-                        login ${DRONE_NETRC_USERNAME}
-                        password ${DRONE_NETRC_PASSWORD}
-                        EOF
-
-                        cd /harness/harness-target-repo && git pull
-                        echo "Pull Complete"
-                        rm -rf /harness/harness-template-repo/.git
-                        cp -rf /harness/harness-template-repo/* .
-                        echo "Copying from template Repo complete"
-                        ls -ltra
-                        git add -A
-                        git status
-                        git commit -m "Adding Template files"
-                        git push
-                        echo "Done"
+                      script: echo "Hello"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
