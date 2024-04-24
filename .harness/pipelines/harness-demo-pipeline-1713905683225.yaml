@@ -44,8 +44,8 @@ pipeline:
                       identifier: GitClone_2
                       spec:
                         connectorRef: account.Github
-                        repoName: kiran99aws/harness-template-repo
-                        cloneDirectory: /harness/harness-template-repo
+                        repoName: kiran99aws/harness-target-repo
+                        cloneDirectory: /harness/harness-target-repo
                         build:
                           type: branch
                           spec:
