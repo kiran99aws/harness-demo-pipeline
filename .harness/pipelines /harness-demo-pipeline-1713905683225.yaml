@@ -58,15 +58,6 @@ pipeline:
                   spec:
                     shell: Bash
                     command: |-
-                      # Create the .netrc file
-                      cat <<EOF > ${HOME}/.netrc
-                      machine ${DRONE_NETRC_MACHINE}
-                      login ${DRONE_NETRC_USERNAME}
-                      password ${DRONE_NETRC_PASSWORD}
-                      EOF
-
-                      echo ${DRONE_NETRC_MACHINE}
-                      # echo HOSTNAME=`hostname` && echo $HOSTNAME
                       git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
                       rm -rf /harness/harness-template-repo/.git*
                       echo "These are the contents of template repo" \n && ls -la /harness/harness-template-repo
@@ -74,4 +65,4 @@ pipeline:
                       echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
                       cd /harness/harness-target-repo
                       git add -A && git commit -m "Updating from Template Repo"
-                      git push 
+                      git push https://kiran99aws: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@github.com/kiran99aws/harness-target-repo.git
