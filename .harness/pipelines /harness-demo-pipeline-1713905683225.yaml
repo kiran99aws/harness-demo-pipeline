@@ -65,4 +65,4 @@ pipeline:
                       echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
                       cd /harness/harness-target-repo
                       git add -A && git commit -m "Updating from Template Repo"
-                      git push https://kiran99aws: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@github.com/kiran99aws/harness-target-repo.git
+                      git push https://kiran99aws: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@github.com/kiran99aws/harness-target-repo.git
