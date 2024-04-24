@@ -70,6 +70,7 @@ pipeline:
                         rm -rf .git
                         mv .git_orig .git
                         git add -A
+                        git status
                         git commit -m "Adding Template files"
                         git push
                         echo "Done"
