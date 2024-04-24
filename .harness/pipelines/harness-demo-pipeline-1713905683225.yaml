@@ -60,7 +60,9 @@ pipeline:
                       git config --global user.email "kiran99aws@gmail.com"
                       git config --global user.name "Kiran Nare"
                       cd /harness/harness-target-repo 
+                      mv .git .git_orig
                       cp -prf /harness/harness-template-repo .
+                      rm -rf .git && mv .git_orig .git
                       git status
                       git add .
                       git commit -m "Copying Code from Template Repo"
