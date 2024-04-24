@@ -8,7 +8,7 @@ pipeline:
       codebase:
         build: <+input>
         connectorRef: account.Github
-        repoName: kiran99aws/harness-template-repo
+        repoName: kiran99aws/harness-demo-pipeline
   stages:
     - stage:
         identifier: build
@@ -19,13 +19,6 @@ pipeline:
           cloneCodebase: true
           execution:
             steps:
-              - step:
-                  identifier: echo
-                  name: echo
-                  spec:
-                    command: echo hello world
-                  timeout: ""
-                  type: Run
               - step:
                   identifier: gitpush
                   name: git-push
