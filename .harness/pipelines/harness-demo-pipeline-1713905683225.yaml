@@ -57,6 +57,8 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
+                      git config --global user.email "kiran99aws@gmail.com"
+                      git config --global user.name "Kiran Nare"
                       cd /harness/harness-target-repo 
                       cp -prf /harness/harness-template-repo .
                       git status
