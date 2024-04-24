@@ -56,5 +56,7 @@ pipeline:
                   name: Run_1
                   identifier: Run_1
                   spec:
-                    shell: Sh
-                    command: echo HOSTNAME=`hostname` && echo $HOSTNAME
+                    shell: Bash
+                    command: |-
+                      echo HOSTNAME=`hostname` && echo $HOSTNAME
+                      ls -l /harness/harness-template-repo
