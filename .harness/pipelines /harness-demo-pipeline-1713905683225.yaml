@@ -59,6 +59,6 @@ pipeline:
                     shell: Bash
                     command: |-
                       echo HOSTNAME=`hostname` && echo $HOSTNAME
-                      rm -rf /harness/harness-template-repo/.git
+                      rm -rf /harness/harness-template-repo/.git*
                       echo "These are the contents of template repo" \n && ls -la /harness/harness-template-repo
                       echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
