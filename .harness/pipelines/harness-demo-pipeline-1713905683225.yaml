@@ -58,7 +58,7 @@ pipeline:
                     shell: Sh
                     command: |-
                       cd /harness/harness-target-repo 
-                      cp -prf /harness/harness-template-repo
+                      cp -prf /harness/harness-template-repo .
                       git status
                       git add .
                       git commit -m "Copying Code from Template Repo"
