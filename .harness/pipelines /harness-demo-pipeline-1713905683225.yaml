@@ -64,7 +64,7 @@ pipeline:
                         password ${DRONE_NETRC_PASSWORD}
                         EOF
 
-                        cd /harness/harness-target-repo
+                        cd /harness/harness-target-repo && git pull
                         mv .git .git_orig
                         cp -prf /harness/harness-template-repo/* .
                         rm -rf .git
