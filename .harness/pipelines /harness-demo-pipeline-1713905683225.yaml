@@ -1,0 +1,75 @@
+pipeline:
+  name: Demo-Scanning-Pipeline
+  identifier: DemoScanningPipeline
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: githubkiran99aws
+        repoName: harness-demo-pipeline
+        build: <+input>
+  stages:
+    - stage:
+        name: Clone-Pipeline-Repo
+        identifier: ClonePipelineRepo
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - parallel:
+                  - step:
+                      type: GitClone
+                      name: GitClone_1
+                      identifier: GitClone_1
+                      spec:
+                        connectorRef: githubkiran99aws
+                        repoName: harness-template-repo
+                        cloneDirectory: /harness/harness-template-repo
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+                  - step:
+                      type: GitClone
+                      name: GitClone_2
+                      identifier: GitClone_2
+                      spec:
+                        connectorRef: githubkiran99aws
+                        repoName: harness-target-repo
+                        cloneDirectory: /harness/harness-target-repo
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: |2-
+                        cat <<EOF > ${HOME}/.netrc
+                        machine ${DRONE_NETRC_MACHINE}
+                        login ${DRONE_NETRC_USERNAME}
+                        password ${DRONE_NETRC_PASSWORD}
+                        EOF
+
+                        cd /harness/harness-target-repo
+                        mv .git .git_orig
+                        cp -prf /harness/harness-template-repo/* .
+                        rm -rf .git
+                        mv .git_orig .git
+                        git add -A
+                        git commit -m "Adding Template files"
+                        git push
+                        echo "Done"
