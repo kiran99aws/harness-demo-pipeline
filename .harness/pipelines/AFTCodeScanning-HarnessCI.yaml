@@ -1,0 +1,69 @@
+pipeline:
+  name: AFTCodeScanning-HarnessCI
+  identifier: AFTCodeScanningHarnessCI
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: githubpublic
+        repoName: terraform-aws-control_tower_account_factory
+        build: <+input>
+  stages:
+    - stage:
+        name: GITCloneAndScan
+        identifier: GITCloneAndScan
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - parallel:
+                  - step:
+                      type: GitClone
+                      name: GitClone_1
+                      identifier: GitClone_1
+                      spec:
+                        connectorRef: githubpublic
+                        repoName: terraform-aws-control_tower_account_factory
+                        cloneDirectory: /harness/terraform-aws-control_tower_account_factory
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+                  - step:
+                      type: GitClone
+                      name: GitClone_2
+                      identifier: GitClone_2
+                      spec:
+                        connectorRef: githubkiran99aws
+                        repoName: harness-target-repo
+                        cloneDirectory: /harness/harness-target-repo
+                        build:
+                          type: branch
+                          spec:
+                            branch: Develop
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Bash
+                    command: |-
+                      git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
+                      rm -rf /harness/terraform-aws-control_tower_account_factory/.git
+                      echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
+                      cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
+                      echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
+                      cd /harness/harness-target-repo
+                      git add -A && git commit -m "Updating from Template Repo"
+                      git remote set-url origin https://kiran99aws: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@github.com/kiran99aws/harness-target-repo.git
+                      git push
