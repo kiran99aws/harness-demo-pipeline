@@ -61,7 +61,7 @@ pipeline:
                       git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
                       rm -rf /harness//harness/terraform-aws-control_tower_account_factory/.git
                       echo "These are the contents of AWS AFT template repo" \n && ls -la /harness//harness/terraform-aws-control_tower_account_factory
-                      cp -prf /harness//harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
+                      cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
                       echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
                       cd /harness/harness-target-repo
                       git add -A && git commit -m "Updating from Template Repo"
