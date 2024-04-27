@@ -87,7 +87,7 @@ pipeline:
                     config: default
                     target:
                       type: repository
-                      workspace: /harness/harness-target-repo
+                      workspace: /harness/harness/harness-target-repo
                       detection: auto
                     advanced:
                       log:
