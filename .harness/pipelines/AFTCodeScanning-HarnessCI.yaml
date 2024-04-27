@@ -63,18 +63,6 @@ pipeline:
                       echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
                       cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
                       echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
-
-                      set -o errexit
-
-                      echo "Installing the latest version of poetry..."
-
-                      pip install --upgrade pip
-
-                      pip install poetry==1.2.0
-
-                      poetry lock
-
-                      python -m poetry install
               - step:
                   type: Bandit
                   name: Bandit_1
