@@ -88,3 +88,36 @@ pipeline:
                     advanced:
                       log:
                         level: info
+              - step:
+                  type: Bandit
+                  name: Bandit_1
+                  identifier: Bandit_1
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      workspace: <+stage.variables.GITHUB_REPO>
+                      detection: manual
+                      name: <+stage.variables.GITHUB_REPO>
+                      variant: <+stage.variables.GITHUB_BRANCH>
+                    advanced:
+                      log:
+                        level: debug
+                      fail_on_severity: critical
+        variables:
+          - name: GITHUB_USERNAME
+            type: String
+            description: ""
+            required: false
+            value: kiran99aws
+          - name: GITHUB_REPO
+            type: String
+            description: ""
+            required: false
+            value: <+input>
+          - name: GITHUB_BRANCH
+            type: String
+            description: ""
+            required: false
+            value: <+input>
