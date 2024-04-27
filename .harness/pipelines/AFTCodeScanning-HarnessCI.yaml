@@ -87,8 +87,8 @@ pipeline:
                   spec:
                     shell: Bash
                     command: |-
-                      cd /harness/harness-target-repo/
-                      git status
+                      cd /harness/harness-target-repo
+                      git add -A && git commit -m "Updating from Template Repo"
                       git push
         variables:
           - name: GITHUB_REPO
