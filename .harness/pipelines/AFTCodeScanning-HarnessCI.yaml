@@ -63,6 +63,21 @@ pipeline:
                       echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
                       cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
                       echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
+    - stage:
+        name: OWASPScan
+        identifier: OWASPScan
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
               - step:
                   type: Owasp
                   name: Owasp_1
@@ -76,4 +91,5 @@ pipeline:
                       detection: auto
                     advanced:
                       log:
-                        level: info
+                        level: debug
+                      fail_on_severity: critical
