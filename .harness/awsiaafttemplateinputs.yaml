@@ -1,0 +1,28 @@
+inputSet:
+  pipeline:
+    identifier: AFTCodeScanningHarnessCI
+    properties:
+      ci:
+        codebase:
+          build:
+            spec:
+              branch: main
+            type: branch
+    stages:
+      - stage:
+          identifier: GITCloneAndScan
+          type: CI
+          variables:
+            - name: GITHUB_REPO
+              type: String
+              value: terraform-aws-control_tower_account_factory
+            - name: GITHUB_BRANCH
+              type: String
+              value: main
+            - name: GITHUB_USERNAME
+              type: String
+              value: aws-ia
+  name: aws-ia-aft-template-inputs
+  identifier: awsiaafttemplateinputs
+  orgIdentifier: default
+  projectIdentifier: default_project
