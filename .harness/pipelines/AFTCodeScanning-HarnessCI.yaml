@@ -52,6 +52,19 @@ pipeline:
                           spec:
                             branch: Develop
               - step:
+                  type: Owasp
+                  name: Owasp_1
+                  identifier: Owasp_1
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+              - step:
                   type: Run
                   name: Run_1
                   identifier: Run_1
