@@ -52,18 +52,6 @@ pipeline:
                           spec:
                             branch: Develop
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Bash
-                    command: |-
-                      git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
-                      rm -rf /harness/terraform-aws-control_tower_account_factory/.git
-                      echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
-                      cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
-                      echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
-              - step:
                   type: Bandit
                   name: Bandit_1
                   identifier: Bandit_1
@@ -82,6 +70,18 @@ pipeline:
                       fail_on_severity: critical
               - step:
                   type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Bash
+                    command: |-
+                      git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
+                      rm -rf /harness/terraform-aws-control_tower_account_factory/.git
+                      echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
+                      cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
+                      echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
+              - step:
+                  type: Run
                   name: Run_2
                   identifier: Run_2
                   spec:
@@ -91,17 +91,17 @@ pipeline:
                       git status
                       git push
         variables:
-          - name: GITHUB_USERNAME
-            type: String
-            description: ""
-            required: false
-            value: kiran99aws
           - name: GITHUB_REPO
             type: String
             description: ""
             required: false
             value: <+input>
           - name: GITHUB_BRANCH
+            type: String
+            description: ""
+            required: false
+            value: <+input>
+          - name: GITHUB_USERNAME
             type: String
             description: ""
             required: false
