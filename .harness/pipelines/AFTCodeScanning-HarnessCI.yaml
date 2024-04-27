@@ -80,6 +80,16 @@ pipeline:
                       log:
                         level: debug
                       fail_on_severity: critical
+              - step:
+                  type: Run
+                  name: Run_2
+                  identifier: Run_2
+                  spec:
+                    shell: Bash
+                    command: |-
+                      cd /harness/harness-target-repo/
+                      git status
+                      git push
         variables:
           - name: GITHUB_USERNAME
             type: String
