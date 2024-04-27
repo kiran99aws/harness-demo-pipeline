@@ -52,6 +52,32 @@ pipeline:
                           spec:
                             branch: Develop
               - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Bash
+                    command: |-
+                      git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
+                      rm -rf /harness/terraform-aws-control_tower_account_factory/.git
+                      echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
+                      cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
+                      echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
+
+                      set -o errexit
+
+                      echo "Installing the latest version of poetry..."
+
+                      pip install --upgrade pip
+
+                      pip install poetry==1.2.0
+
+                      rm poetry.lock
+
+                      poetry lock
+
+                      python -m poetry install
+              - step:
                   type: Owasp
                   name: Owasp_1
                   identifier: Owasp_1
@@ -64,15 +90,3 @@ pipeline:
                     advanced:
                       log:
                         level: info
-              - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Bash
-                    command: |
-                      git config --global user.email "kiran99aws@gmail.com" && git config --global user.name "Kiran Nare"
-                      rm -rf /harness/terraform-aws-control_tower_account_factory/.git
-                      echo "These are the contents of AWS AFT template repo" \n && ls -la /harness/terraform-aws-control_tower_account_factory
-                      cp -prf /harness/terraform-aws-control_tower_account_factory/* /harness/harness-target-repo/
-                      echo "These are the contents of target repo" \n && ls -la /harness/harness-target-repo
