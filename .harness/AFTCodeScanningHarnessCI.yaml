@@ -63,4 +63,4 @@ pipeline:
                       touch test
                       git status
                       git add .
-                      git push
+                      git push --set-upstream origin public-master
