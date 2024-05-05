@@ -67,7 +67,7 @@ pipeline:
                       git add .
                       git commit -m "Push AWS Public Code to new branch"
                       echo <+stage.variables.gh-pat>
-                      git config --global credential.helper '!f() { sleep 1; echo "username=git token=<+stage.variables.gh-pat>"; }; f'
+                      git config --global credential.helper '!f() { sleep 1; echo "username=git token=`<+stage.variables.gh-pat>`"; }; f'
                       git push --set-upstream origin public-master
         variables:
           - name: gh-pat
