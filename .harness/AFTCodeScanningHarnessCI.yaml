@@ -51,3 +51,16 @@ pipeline:
                           type: branch
                           spec:
                             branch: Develop
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Bash
+                    command: |-
+                      cd /harness/harness-demo-pipeline
+                      git checkout -b public-master
+                      touch test
+                      git status
+                      git add .
+                      git push
