@@ -58,6 +58,8 @@ pipeline:
                   spec:
                     shell: Bash
                     command: |-
+                      git config --global user.email "kiran99aws@gmail.com"
+                      git config --global user.name "Kiran Nare"
                       cd /harness/harness-demo-pipeline
                       git checkout -b public-master
                       touch test
