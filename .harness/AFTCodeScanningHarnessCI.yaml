@@ -26,15 +26,28 @@ pipeline:
             spec: {}
           execution:
             steps:
-              - step:
-                  type: GitClone
-                  name: GitClone_1
-                  identifier: GitClone_1
-                  spec:
-                    connectorRef: GitPublickiran99aws
-                    repoName: terraform-aws-control_tower_account_factory
-                    cloneDirectory: /harness/terraform-aws-control_tower_account_factory
-                    build:
-                      type: branch
+              - parallel:
+                  - step:
+                      type: GitClone
+                      name: GitClone_1
+                      identifier: GitClone_1
                       spec:
-                        branch: main
+                        connectorRef: GitPublickiran99aws
+                        repoName: terraform-aws-control_tower_account_factory
+                        cloneDirectory: /harness/terraform-aws-control_tower_account_factory
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+                  - step:
+                      type: GitClone
+                      name: GitClone_2
+                      identifier: GitClone_2
+                      spec:
+                        connectorRef: GITPrivateKiran99aws
+                        repoName: harness-demo-pipeline
+                        cloneDirectory: /harness/harness-demo-pipeline
+                        build:
+                          type: branch
+                          spec:
+                            branch: Develop
