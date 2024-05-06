@@ -65,7 +65,6 @@ pipeline:
                       git rm README.md
                       git pull  https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-main --allow-unrelated-histories
                       git checkout -b awsia-main
-                      touch test
                       git rebase --continue
                       git status
                       git commit -m "Push AWS Public Code to awsia-main branch"
