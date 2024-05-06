@@ -66,7 +66,7 @@ pipeline:
                       git pull  https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-main --allow-unrelated-histories
                       git checkout -b awsia-main
                       #git rebase --continue
-                      git status
+                      #git status
                       git commit -m "Push AWS Public Code to awsia-main branch"
                       echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
                       git remote set-url origin  "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
