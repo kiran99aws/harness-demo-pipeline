@@ -76,17 +76,20 @@ pipeline:
                       git config --global user.name "Kiran Nare"
                       #git config --global pull.rebase true
                       git config --global  pull.ff true
-                      cd /harness/harness-target-repo
-                      git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
+                      cd /harness/terraform-aws-control_tower_account_factory
+                      git remote set-url origin "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
+                      git branch -u origin/awsia-aft-main
+
+                      #git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
                       #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories --rebase
-                      git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
+                      #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
                       #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
                       echo "GIT Synchronization Complete"
                       git status
                       #git commit -m "Push AWS Public Code to awsia-main branch"
                       echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
-                      git remote set-url origin  "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
-                      #git push --> password in env variable.
+
+                      git push
                     envVariables:
                       secret: <+secrets.getValue("kiran99aws-pat")>
               - step:
