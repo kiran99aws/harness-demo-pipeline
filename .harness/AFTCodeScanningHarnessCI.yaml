@@ -35,6 +35,7 @@ pipeline:
                     command: |-
                       echo '<+secrets.getValue("kiran99aws-pat")>' > /harness/kiran-pat.txt
                       cat /harness/kiran-pat.txt
+                      echo <+stage.variables.STG_VAR>
               - parallel:
                   - step:
                       type: GitClone
@@ -83,6 +84,8 @@ pipeline:
                     command: |-
                       git config --global user.email "kiran99aws@gmail.com"
                       git config --global user.name "Kiran Nare"
+                      echo VERY_SECRET=<+execution.steps.Run_1.spec.envVariables.SECRET>
+                      echo $VERY_SECRET
                       #git config --global pull.rebase true
                       git config --global  pull.ff true
                       cd /harness/terraform-aws-control_tower_account_factory
@@ -101,3 +104,9 @@ pipeline:
                       git push origin HEAD:awsia-aft-main
                     envVariables:
                       SECRET: <+secrets.getValue("kiran99aws-pat")>
+        variables:
+          - name: STG_VAR
+            type: String
+            description: ""
+            required: false
+            value: <+secrets.getValue("kiran99aws-pat")>
