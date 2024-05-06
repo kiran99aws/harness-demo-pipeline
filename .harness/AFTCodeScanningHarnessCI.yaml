@@ -79,7 +79,7 @@ pipeline:
                       cd /harness/harness-target-repo
                       git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git:main
                       #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories --rebase
-                      git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
+                      git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
                       #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
                       echo "GIT Synchronization Complete"
                       #git status
