@@ -89,13 +89,7 @@ pipeline:
                       git pull --rebase
                       git status
                       #git commit -m "Push AWS Public Code to awsia-main branch"
-                      echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
+                      echo "text secret is: " <+env.variables.SECRET>
                       git push origin HEAD:awsia-aft-main
                     envVariables:
-                      secret: <+secrets.getValue("kiran99aws-pat")>
-        variables:
-          - name: gh_pat
-            type: String
-            description: ""
-            required: false
-            value: Test_Value
+                      SECRET: <+secrets.getValue("kiran99aws-pat")>
