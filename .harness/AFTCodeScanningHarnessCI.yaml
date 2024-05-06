@@ -86,6 +86,7 @@ pipeline:
                       #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
                       #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
                       echo "GIT Synchronization Complete"
+                      git pull --rebase
                       git status
                       #git commit -m "Push AWS Public Code to awsia-main branch"
                       echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
