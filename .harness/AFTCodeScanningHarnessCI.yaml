@@ -26,51 +26,31 @@ pipeline:
             spec: {}
           execution:
             steps:
-              - step:
-                  type: GitClone
-                  name: CloneAWSRepo
-                  identifier: GitClone_1
-                  spec:
-                    connectorRef: GitPublickiran99aws
-                    repoName: terraform-aws-control_tower_account_factory
-                    cloneDirectory: /harness/terraform-aws-control_tower_account_factory
-                    build:
-                      type: branch
+              - parallel:
+                  - step:
+                      type: GitClone
+                      name: CloneAWSRepo
+                      identifier: GitClone_1
                       spec:
-                        branch: main
-              - step:
-                  type: GitClone
-                  name: CloneTargetRepo
-                  identifier: GitClone_2
-                  spec:
-                    connectorRef: GITPrivateKiran99aws
-                    repoName: harness-target-repo
-                    cloneDirectory: /harness/harness-target-repo
-                    build:
-                      type: branch
+                        connectorRef: GitPublickiran99aws
+                        repoName: terraform-aws-control_tower_account_factory
+                        cloneDirectory: /harness/terraform-aws-control_tower_account_factory
+                        build:
+                          type: branch
+                          spec:
+                            branch: main
+                  - step:
+                      type: GitClone
+                      name: CloneTargetRepo
+                      identifier: GitClone_2
                       spec:
-                        branch: awsia-aft-main
-              - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Bash
-                    command: |-
-                      git config --global user.email "kiran99aws@gmail.com"
-                      git config --global user.name "Kiran Nare"
-                      #git config --global pull.rebase true
-                      git config --global  pull.ff true
-                      cd /harness/harness-target-repo
-                      git remote add upstream https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git:main
-                      #git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git:main
-                      git branch -a
-                      git fetch upstream
-                      git checkout -b awsia-aft-main-<+pipeline.sequenceId> upstream/main
-                      #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories --rebase
-                      #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
-                      #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
-                      echo "GIT Synchronization Complete"
+                        connectorRef: GITPrivateKiran99aws
+                        repoName: harness-target-repo
+                        cloneDirectory: /harness/harness-target-repo
+                        build:
+                          type: branch
+                          spec:
+                            branch: awsia-aft-main
               - step:
                   type: Bandit
                   name: Bandit_1
@@ -87,16 +67,28 @@ pipeline:
                         level: info
               - step:
                   type: Run
-                  name: Run_2
-                  identifier: Run_2
+                  name: Run_1
+                  identifier: Run_1
                   spec:
-                    shell: Sh
+                    shell: Bash
                     command: |-
+                      git config --global user.email "kiran99aws@gmail.com"
+                      git config --global user.name "Kiran Nare"
+                      #git config --global pull.rebase true
+                      git config --global  pull.ff true
+                      cd /harness/harness-target-repo
+                      git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
+                      #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories --rebase
+                      git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
+                      #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
+                      echo "GIT Synchronization Complete"
                       #git status
                       git commit -m "Push AWS Public Code to awsia-main branch"
                       echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
                       git remote set-url origin  "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
-                      git push
+                      #git push --> password in env variable.
+                    envVariables:
+                      secret: <+secrets.getValue("kiran99aws-pat")>
         variables:
           - name: gh_pat
             type: String
