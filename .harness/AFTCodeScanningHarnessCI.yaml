@@ -77,8 +77,8 @@ pipeline:
                       #git config --global pull.rebase true
                       git config --global  pull.ff true
                       cd /harness/harness-target-repo
-                      #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories
-                      git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
+                      git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories
+                      #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
                       echo "GIT Synchronization Complete"
                       git rebase --continue
                       #git status
