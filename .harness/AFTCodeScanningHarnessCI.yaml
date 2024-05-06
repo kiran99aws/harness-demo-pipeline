@@ -52,6 +52,20 @@ pipeline:
                           spec:
                             branch: Develop
               - step:
+                  type: Bandit
+                  name: Bandit_1
+                  identifier: Bandit_1
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      workspace: /harness/terraform-aws-control_tower_account_factory
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+              - step:
                   type: Run
                   name: Run_1
                   identifier: Run_1
