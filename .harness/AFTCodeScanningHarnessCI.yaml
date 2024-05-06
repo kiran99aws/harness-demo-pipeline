@@ -69,7 +69,7 @@ pipeline:
                       git commit -m "Push AWS Public Code to awsia-main branch"
                       echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
                       git remote set-url origin  "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
-                      git push --set-upstream origin awsia-main --rebase
+                      git push --set-upstream origin awsia-main
         variables:
           - name: gh_pat
             type: String
