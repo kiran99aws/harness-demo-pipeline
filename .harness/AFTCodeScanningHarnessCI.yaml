@@ -62,6 +62,7 @@ pipeline:
                       git config --global user.name "Kiran Nare"
                       git config --global  pull.ff true
                       cd /harness/harness-target-repo
+                      git rm README.md
                       git pull  https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-main --allow-unrelated-histories
                       git checkout -b awsia-main
                       touch test
