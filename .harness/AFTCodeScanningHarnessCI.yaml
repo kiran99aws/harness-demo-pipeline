@@ -29,7 +29,7 @@ pipeline:
               - parallel:
                   - step:
                       type: GitClone
-                      name: GitClone_1
+                      name: CloneAWSRepo
                       identifier: GitClone_1
                       spec:
                         connectorRef: GitPublickiran99aws
@@ -41,12 +41,12 @@ pipeline:
                             branch: main
                   - step:
                       type: GitClone
-                      name: GitClone_2
+                      name: CloneTargetRepo
                       identifier: GitClone_2
                       spec:
                         connectorRef: GITPrivateKiran99aws
-                        repoName: harness-demo-pipeline
-                        cloneDirectory: /harness/harness-demo-pipeline
+                        repoName: harness-target-repo
+                        cloneDirectory: /harness/harness-target-repo
                         build:
                           type: branch
                           spec:
@@ -60,7 +60,7 @@ pipeline:
                     command: |-
                       git config --global user.email "kiran99aws@gmail.com"
                       git config --global user.name "Kiran Nare"
-                      cd /harness/harness-demo-pipeline
+                      cd /harness/harness-target-repo
                       git checkout -b public-master
                       touch test
                       git status
