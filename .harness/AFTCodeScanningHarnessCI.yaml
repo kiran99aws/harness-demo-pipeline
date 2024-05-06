@@ -90,7 +90,7 @@ pipeline:
                       git status
                       #git commit -m "Push AWS Public Code to awsia-main branch"
                       echo "text secret is: " <+secrets.getValue("kiran99aws-pat")>
-                      git push origin HEAD:awsia-aft-main --force
+                      git push origin HEAD:awsia-aft-main
                     envVariables:
                       secret: <+secrets.getValue("kiran99aws-pat")>
         variables:
