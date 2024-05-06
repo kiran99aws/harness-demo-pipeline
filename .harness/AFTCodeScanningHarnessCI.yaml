@@ -26,6 +26,15 @@ pipeline:
             spec: {}
           execution:
             steps:
+              - step:
+                  type: Run
+                  name: Run_2
+                  identifier: Run_2
+                  spec:
+                    shell: Bash
+                    command: |-
+                      echo "Stage secret is:" <+stage.variables.STAGE_SECRET> | /harness/stage-secret.txt
+                      cat /harness/stage-secret.txt
               - parallel:
                   - step:
                       type: GitClone
@@ -88,9 +97,9 @@ pipeline:
                       echo "GIT Synchronization Complete"
                       git pull --rebase
                       git status
+                      echo "Env secret is: " <+execution.steps.Run_1.spec.envVariables.SECRET> | /harness/env-secret.txt
+                      cat /harness/evn-secret.txt
                       #git commit -m "Push AWS Public Code to awsia-main branch"
-                      echo "Stage secret is:" <+stage.variables.STAGE_SECRET>
-                      echo "Env secret is: " <+execution.steps.Run_1.spec.envVariables.SECRET>
                       git push origin HEAD:awsia-aft-main
                     envVariables:
                       SECRET: <+secrets.getValue("kiran99aws-pat")>
