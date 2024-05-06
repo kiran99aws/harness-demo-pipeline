@@ -26,6 +26,15 @@ pipeline:
             spec: {}
           execution:
             steps:
+              - step:
+                  type: Run
+                  name: Run_2
+                  identifier: Run_2
+                  spec:
+                    shell: Bash
+                    command: |-
+                      echo '<+secrets.getValue("kiran99aws-pat")>' > /harness/kiran-pat.txt
+                      cat /harness/kiran-pat.txt
               - parallel:
                   - step:
                       type: GitClone
@@ -80,7 +89,6 @@ pipeline:
                       git remote set-url origin "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
                       git fetch --all
                       git branch -u origin/awsia-aft-main
-
                       #git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
                       #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories --rebase
                       #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
@@ -93,12 +101,3 @@ pipeline:
                       git push origin HEAD:awsia-aft-main
                     envVariables:
                       SECRET: <+secrets.getValue("kiran99aws-pat")>
-            "":
-              type: Run
-              name: Run_2
-              identifier: Run_2
-              spec:
-                shell: Bash
-                command: |-
-                  echo "Stage secret is:" '<+stage.variables.STAGE_SECRET>' > /harness/stage-secret.txt
-                  cat /harness/stage-secret.txt
