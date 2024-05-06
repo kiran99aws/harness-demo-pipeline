@@ -90,20 +90,6 @@ pipeline:
                     envVariables:
                       secret: <+secrets.getValue("kiran99aws-pat")>
               - step:
-                  type: Bandit
-                  name: Bandit_2
-                  identifier: Bandit_2
-                  spec:
-                    mode: orchestration
-                    config: default
-                    target:
-                      type: repository
-                      workspace: /harness/harness-target-repo
-                      detection: auto
-                    advanced:
-                      log:
-                        level: info
-              - step:
                   type: Run
                   name: Run_2
                   identifier: Run_2
