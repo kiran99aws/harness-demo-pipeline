@@ -85,7 +85,7 @@ pipeline:
                       git config --global user.email "kiran99aws@gmail.com"
                       git config --global user.name "Kiran Nare"
                       echo VERY_SECRET=<+execution.steps.Run_1.spec.envVariables.SECRET>
-                      echo $VERY_SECRET
+                      echo "This is the Secret -- ${VERY_SECRET}"
                       #git config --global pull.rebase true
                       git config --global  pull.ff true
                       cd /harness/terraform-aws-control_tower_account_factory
