@@ -39,9 +39,12 @@ pipeline:
                       #######
                       echo "Hello World!"
                       git --version
+                      curl --version
+                      curl -L https://aka.ms/gcm/linux-install-source.sh | sh
+                      git-credential-manager configure
                       echo 'echo "$API_KEY"' > gitpassword.sh
                       chmod +x gitpassword.sh
-
+                      cat gitpassword.sh
                       GIT_ASKPASS=/harness/gitpassword.sh git clone https://github.com/kiran99aws/test-repository.git
                       cd test-repository
                       ls
