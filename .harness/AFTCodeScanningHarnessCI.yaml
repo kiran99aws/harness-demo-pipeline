@@ -39,9 +39,6 @@ pipeline:
                       #######
                       echo "Hello World!"
                       git --version
-                      curl --version
-                      curl -L https://aka.ms/gcm/linux-install-source.sh | sh
-                      git-credential-manager configure
                       echo 'echo "$API_KEY"' > gitpassword.sh
                       chmod +x gitpassword.sh
                       cat gitpassword.sh
