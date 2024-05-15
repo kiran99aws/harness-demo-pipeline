@@ -28,7 +28,7 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Run_2
+                  name: RUN-GIT-Public-Fetch
                   identifier: Run_2
                   spec:
                     shell: Bash
@@ -41,33 +41,14 @@ pipeline:
                       cd test-repository
                       ls
                       cat README.md
+
+                      # Pull code for aws public GIT Repo
+                      echo "Pulling Code"
+                      git remote add upstream https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
+                      git fetch upstream
+                      git checkout -b public-master-<+pipeline.sequenceId> upstream/main
                     envVariables:
                       API_KEY: <+secrets.getValue("kiran99aws-pat")
-              - parallel:
-                  - step:
-                      type: GitClone
-                      name: CloneAWSRepo
-                      identifier: GitClone_1
-                      spec:
-                        connectorRef: GitPublickiran99aws
-                        repoName: terraform-aws-control_tower_account_factory
-                        cloneDirectory: /harness/terraform-aws-control_tower_account_factory
-                        build:
-                          type: branch
-                          spec:
-                            branch: main
-                  - step:
-                      type: GitClone
-                      name: CloneTargetRepo
-                      identifier: GitClone_2
-                      spec:
-                        connectorRef: GITPrivateKiran99aws
-                        repoName: harness-target-repo
-                        cloneDirectory: /harness/harness-target-repo
-                        build:
-                          type: branch
-                          spec:
-                            branch: awsia-aft-main
               - step:
                   type: Bandit
                   name: Bandit_1
@@ -84,31 +65,19 @@ pipeline:
                         level: info
               - step:
                   type: Run
-                  name: Run_1
+                  name: RUN-GIT_PUSH
                   identifier: Run_1
                   spec:
                     shell: Bash
                     command: |-
                       git config --global user.email "kiran99aws@gmail.com"
                       git config --global user.name "Kiran Nare"
-                      echo VERY_SECRET=<+execution.steps.Run_1.spec.envVariables.SECRET>
-                      echo "This is the Secret -- $VERY_SECRET"
-                      #git config --global pull.rebase true
-                      git config --global  pull.ff true
-                      cd /harness/terraform-aws-control_tower_account_factory
-                      git remote set-url origin "https://kiran99aws:<+secrets.getValue("kiran99aws-pat")>@github.com/kiran99aws/harness-target-repo"
-                      git fetch --all
-                      git branch -u origin/awsia-aft-main
-                      #git remote add awsia-aft-main https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git
-                      #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main --allow-unrelated-histories --rebase
-                      #git pull https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git --allow-unrelated-histories
-                      #git fetch https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git main:awsia-aft-main
-                      echo "GIT Synchronization Complete"
-                      git pull --rebase
-                      git status
-                      #git commit -m "Push AWS Public Code to awsia-main branch"
-                      echo "text secret is: "<+execution.steps.Run_1.spec.envVariables.SECRET>
-                      git push origin HEAD:awsia-aft-main
+
+                      echo "Hello World!"
+                      git --version
+                      echo 'echo "$API_KEY"' > gitpassword.sh
+                      chmod +x gitpassword.sh
+                      GIT_ASKPASS=/harness/gitpassword.sh git push origin public-master-<+pipeline.sequenceId>
                     envVariables:
                       SECRET: <+secrets.getValue("kiran99aws-pat")>
         variables:
