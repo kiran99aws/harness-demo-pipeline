@@ -35,7 +35,12 @@ pipeline:
                     command: |-
                       echo "Hello World!"
                       git --version
-                      echo 'echo "$API_KEY"' > gitpassword.sh
+                      echo '#!/bin/bash
+                      case "$1" in
+                          Username*) exec echo "$GIT_USER_ID" ;;
+                          Password*) exec echo "$API_KEY" ;;
+                      esac
+                      ' > gitpassword.sh
                       chmod +x gitpassword.sh
                       GIT_ASKPASS=/harness/gitpassword.sh git clone https://github.com/kiran99aws/test-repository.git
                       cd test-repository
@@ -49,6 +54,7 @@ pipeline:
                       git checkout -b public-master-<+pipeline.sequenceId> upstream/main
                     envVariables:
                       API_KEY: <+secrets.getValue("ghpat")
+                      GIT_USER_ID: kiran99aws
               - step:
                   type: Bandit
                   name: Bandit_1
