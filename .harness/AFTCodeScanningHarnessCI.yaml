@@ -48,7 +48,7 @@ pipeline:
                       git fetch upstream
                       git checkout -b public-master-<+pipeline.sequenceId> upstream/main
                     envVariables:
-                      API_KEY: <+secrets.getValue("kiran99aws-pat")
+                      API_KEY: <+secrets.getValue("ghpat")
               - step:
                   type: Bandit
                   name: Bandit_1
@@ -79,7 +79,7 @@ pipeline:
                       chmod +x gitpassword.sh
                       GIT_ASKPASS=/harness/gitpassword.sh git push origin public-master-<+pipeline.sequenceId>
                     envVariables:
-                      SECRET: <+secrets.getValue("kiran99aws-pat")>
+                      API_KEY: <+secrets.getValue("ghpat")>
         variables:
           - name: STG_VAR
             type: String
