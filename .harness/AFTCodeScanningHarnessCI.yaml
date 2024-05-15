@@ -58,7 +58,7 @@ pipeline:
                     config: default
                     target:
                       type: repository
-                      workspace: /harness/terraform-aws-control_tower_account_factory
+                      workspace: /harness/test-repository
                       detection: auto
                     advanced:
                       log:
